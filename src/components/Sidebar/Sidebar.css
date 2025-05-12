@@ -1,0 +1,43 @@
+.sidebar {
+  width: 155px;
+  background-color: #020202;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  height: "100vh";
+}
+
+.company-container {
+  display: flex;
+}
+
+.sidebar-svg {
+  margin-left: 40px;
+  margin-bottom: 8px;
+}
+
+.company-info {
+  margin-bottom: 32px;
+  font-size: 12px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 4px 0;
+  position: relative;
+}
+
+.nav-link.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
