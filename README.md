@@ -1,6 +1,7 @@
 
 
-## 🚀 afinz-web
+
+# 🚀 afinz-web
 
 🎉 **Bem-vindo ao frontend React do Desafio Afinz!** 🎉
 
@@ -8,9 +9,9 @@ Uma aplicação para gerenciar transações bancárias entre usuários, seguindo
 
 ----------
 
-## 🏗️ Arquitetura e Padrões
+# 🏗️ Arquitetura e Padrões
 
-### MVVM (Model-View-ViewModel)
+## MVVM (Model-View-ViewModel)
 
 -   **Models** (`src/models`): Tipos puros e DTOs que representam dados de API e regras de negócio.
     
@@ -19,19 +20,19 @@ Uma aplicação para gerenciar transações bancárias entre usuários, seguindo
 -   **Views** (`src/views` e `src/components`): Componentes React que apenas consomem ViewModels e renderizam UI.
     
 
-### Context Providers
+## Context Providers
 
 -   **AppContext** (`src/contexts/AppContext.tsx`): Gerencia `profile` e `balance` globalmente.
     
 -   **UIContext** (`src/contexts/UIContext.tsx`): Controla modais de erro via `errorMessage` e `clearError`.
     
 
-### 🚦 Navegação
+## 🚦 Navegação
 
 -   **React Router v6** (`src/routes`): Rotas aninhadas para abas `Saldo` e `Transferir`, usando `<Outlet />` e `<NavLink>`.
     
 
-### 🔌 Comunicação com API
+## 🔌 Comunicação com API
 
 -   **Axios** (`src/api/axios.ts`): Cliente configurado com `VITE_API_BASE_URL` e `VITE_API_TOKEN` (Bearer).
     
@@ -40,23 +41,23 @@ Uma aplicação para gerenciar transações bancárias entre usuários, seguindo
 -   **Tratamento de Erros**: _Interceptors_ no Axios + UIContext para mensagens amigáveis.
     
 
-### 🛠️ Formulários e Validações
+## 🛠️ Formulários e Validações
 
 -   **react-hook-form**: Controle de estado e validações declarativas.
     
 -   **Utils** (`src/utils`): Funções como `formatToBRL`, `formatTimestamp` e parse de DTO.
     
 
-### 💡 Componentes Reutilizáveis
+## 💡 Componentes Reutilizáveis
 
 -   **CurrencyInput**: Máscara de moeda sem alterar `rawValue` (em centavos).
     
 -   **ErrorModal** e **TransactionReceiptModal**: Feedback de erros e comprovantes.
 ---
 
-## Como rodar o projeto
+# Como rodar o projeto
 
-### Pré-requisitos
+## Pré-requisitos
 - Node.js v16+ e npm ou Yarn
 - Variáveis de ambiente definidas em `.env` será enviado no e-mail:  
   ```
@@ -64,7 +65,7 @@ Uma aplicação para gerenciar transações bancárias entre usuários, seguindo
   VITE_API_TOKEN=
   ```
 
-### Passos
+## Passos
 1. Clone o repositório:
    ```bash
    git clone https://github.com/Faran42/afinz-web.git
@@ -83,13 +84,13 @@ Uma aplicação para gerenciar transações bancárias entre usuários, seguindo
 4. Abra [http://localhost:3000](http://localhost:3000) no navegador 
 Atenção nessa parte, a porta pode mudar de acordo com as configurações do seu sistema, na dúvida, checar a porta no console / terminal após rodar o comando npm run dev.
 
-### Variáveis de Ambiente
+## Variáveis de Ambiente
 - **VITE_API_BASE_URL**: URL base da API (público ou mocks).  
 - **VITE_API_TOKEN**: token Bearer para autenticação.
 
 ---
 
-## Scripts
+# Scripts
 - `npm run dev`: inicia servidor de desenvolvimento
 - `npm run build`: gera build de produção
 - `npm run preview`: serve build localmente
@@ -97,7 +98,7 @@ Atenção nessa parte, a porta pode mudar de acordo com as configurações do se
 ---
 
 
-## Considerações Finais
+# Considerações Finais
 Este projeto adota padrões modernos de React e arquitetura MVVM para garantir **separação de responsabilidades**, **testabilidade** e **escala** futura. Componentização, hooks customizados e contextos permitem alta reutilização e manutenção.
 
 ##### Feito com ❤️ por Franklyn Rocha
