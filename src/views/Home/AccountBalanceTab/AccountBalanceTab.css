@@ -10,3 +10,10 @@ h5,
 h6 {
   margin: 0;
 }
+
+.balance-bar {
+  height: 16px;
+  margin: 10px 0;
+  background-color: #00c5cb;
+  border-radius: 8px;
+}

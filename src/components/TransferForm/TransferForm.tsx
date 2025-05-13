@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import "./TransferForm.css";
 import { useTransferFormViewModel } from "../../viewmodels/useTransferFormViewModel";
+import { CurrencyInput } from "../CurrencyInput/CurrencyInput";
+import { useState } from "react";
 
 type FormValues = {
   agency: string;
@@ -10,18 +12,28 @@ type FormValues = {
 
 export const TransferForm = () => {
   const { submitTransfer, loading } = useTransferFormViewModel();
+  const [valueRaw, setValueRaw] = useState(0);
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormValues>();
 
   const onSubmit = (data: FormValues) => {
+    if (Number(data.value) < 1) {
+      setError("value", {
+        type: "manual",
+        message: "O valor deve ser pelo menos R$ 0,01",
+      });
+      return;
+    }
+
     submitTransfer({
       agency: Number(data.agency),
       account: Number(data.account),
-      value: Number(data.value),
+      value: Number(valueRaw),
     });
   };
 
@@ -61,12 +73,15 @@ export const TransferForm = () => {
 
       <div className="form-group">
         <label htmlFor="value">Valor</label>
-        <input
+        <CurrencyInput valueRaw={valueRaw} onChangeRaw={setValueRaw} />
+        {/* <input
           type="number"
           id="value"
+          min={0}
+          max={balance / 100 || 0}
           placeholder="Digite o valor"
-          {...register("value", { required: "Campo obrigatório" })}
-        />
+          
+        /> */}
         {errors.value && <span>{errors.value.message}</span>}
       </div>
 

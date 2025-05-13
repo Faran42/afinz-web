@@ -11,23 +11,9 @@ import { useTransferContext } from "../hooks/useTransferContext";
 export function useTransferFormViewModel() {
   const { balance, setBalance, profile } = useAppContext();
   const { setErrorMessage } = useUIContext();
-  const [loading, setLoading] = useState(false);
   const { showReceipt } = useTransferContext();
 
-  //Essa função seria usada para validar se o usuário tem saldo suficiente para transferir,
-  // contúdo, como o valor será gerenciado apenas na aplicação, essa função acaba não fazendo sentido
-  // nesse contexto, o que não é uma prática recomendável, pois, o saldo é um dado sensível,
-  // e por segurança deveria ser sempre validado com o backend antes de qualquer transferência
-
-  // const fetchBalance = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const data = await getBalance();
-  //     setBalance(data.saldo);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const [loading, setLoading] = useState(false);
 
   function userHasBalance(valor: number): boolean {
     if (!balance) return false;
@@ -39,14 +25,17 @@ export function useTransferFormViewModel() {
       const response = await consultAgencyAccount(agency, account);
       return response;
     } catch (error) {
-      console.log("[checkIfAccountIsValid-error]", error);
+      setErrorMessage(
+        "Erro, conta ou agência inválida, verifique os dados e tente novamente."
+      );
+      console.log("[checkIfAccountIsValid-error]");
       throw error;
     }
   }
 
   function parseTransferReceipt(raw: TransferResponseDTO): TransactionReceipt {
     return {
-      balance: formatToBRL(balance),
+      balance: formatToBRL(balance - raw.value), //existe um bug aqui, que ainda não foi resolvido.
       status: raw.status === "APPROVED" ? "Aprovada" : "Em processamento",
       date: raw.dateTime,
       agency: raw.to.agency,
@@ -90,8 +79,13 @@ export function useTransferFormViewModel() {
 
       showReceipt(dataParsed);
     } catch (error) {
-      console.log("[submitTransfer-error]", error);
-      setErrorMessage(error.message);
+      setErrorMessage(
+        error.status === 500
+          ? "Não foi possível realizar a transferência, tente novamente mais tarde"
+          : error.status === 400
+          ? "Dados inválidos, verifique os dados e tente novamente"
+          : error.message
+      );
     } finally {
       setLoading(false);
     }

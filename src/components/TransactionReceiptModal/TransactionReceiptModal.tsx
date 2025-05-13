@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import "./TransactionReceiptModal.css";
 import type { TransactionReceipt } from "../../models/TransactionReceipt";
+import { formatTimestampToBR } from "../../utils/formatTimestampToBR";
 
 type Props = {
   receipt: TransactionReceipt;
@@ -15,47 +16,27 @@ export const TransactionReceiptModal = ({ receipt, onClose }: Props) => {
       </button>
 
       <div className="info">
-        <p>
-          <strong>Novo Saldo</strong>
-          <br />
-          {receipt?.balance}
-        </p>
+        <strong>Novo Saldo</strong>
 
-        <p>
-          <strong>Status</strong>
-          <br />
-          {receipt?.status}
-        </p>
-        <p>
-          <strong>Data - Home</strong>
-          <br />
-          {receipt?.date}
-        </p>
-        <p>
-          <strong>Agência</strong>
-          <br />
-          {receipt?.agency}
-        </p>
-        <p>
-          <strong>Conta</strong>
-          <br />
-          {receipt?.account}
-        </p>
-        <p>
-          <strong>Valor</strong>
-          <br />
-          {receipt?.value}
-        </p>
-        <p>
-          <strong>Sua conta</strong>
-          <br />
-          {receipt?.yourAccount}
-        </p>
-        <p>
-          <strong>Sua agência</strong>
-          <br />
-          {receipt?.yourAgency}
-        </p>
+        <p>{receipt?.balance}</p>
+
+        <strong>Status</strong>
+
+        <p>{receipt?.status}</p>
+
+        <strong>Data - Home</strong>
+        <p>{formatTimestampToBR(receipt?.date)}</p>
+
+        <strong>Agência</strong>
+        <p>{receipt?.agency}</p>
+        <strong>Conta</strong>
+        <p>{receipt?.account}</p>
+        <strong>Valor</strong>
+        <p>{receipt?.value}</p>
+        <strong>Sua conta</strong>
+        <p>{receipt?.yourAccount}</p>
+        <strong>Sua agência</strong>
+        <p>{receipt?.yourAgency}</p>
       </div>
     </div>
   );

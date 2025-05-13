@@ -16,14 +16,6 @@ export const useTransferViewModel = () => {
     setIsReceiptModalOpen(false);
   };
 
-  useEffect(() => {
-    if (isReceiptModalOpen) {
-      console.log("Receipt Modal is open");
-    } else {
-      console.log("Receipt Modal is closed");
-    }
-  }, [isReceiptModalOpen]);
-
   return {
     isReceiptModalOpen,
     transactionReceipt,

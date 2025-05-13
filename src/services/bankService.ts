@@ -14,9 +14,6 @@ export const getProfile = async () => {
 export const getBalance = async () => {
   try {
     const response = await api.get("/balance");
-
-    console.log("balance data from api: ", response.data);
-
     return response.data;
   } catch (error) {
     console.error("Error fetching balance:", error);
@@ -29,11 +26,9 @@ export const consultAgencyAccount = async (agency: number, account: number) => {
     const response = await api.get(
       `/consult-agency-account/${agency}/${account}`
     );
-    console.log("consult-Agency-Account data from api: ", response.data);
-
     return response.data;
   } catch (error) {
-    console.error("Error fetching balance:", error);
+    console.error("Error fetching agency-acount data:", error);
     throw error;
   }
 };
@@ -45,9 +40,6 @@ export const makeTransfer = async (payload: {
 }) => {
   try {
     const response = await api.post("/transfer", payload);
-
-    console.log("Transfer Success", response.data);
-
     return response.data;
   } catch (error) {
     console.error(" Error tranfering balance:", error);

@@ -12,7 +12,7 @@ export const BalanceInfoCard = () => {
     setShowBalance((prev) => !prev);
   };
 
-  const formattedDate = "Atualizado em 12/05/2025 às 14:30";
+  const formattedDate = new Date().toLocaleString();
 
   return (
     <div className="balance-card">
@@ -32,7 +32,7 @@ export const BalanceInfoCard = () => {
         <div className="balance-bar" />
       )}
 
-      <span className="card-info">{formattedDate}</span>
+      <span className="card-info">Atualizado em {formattedDate}</span>
     </div>
   );
 };

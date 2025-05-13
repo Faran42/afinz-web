@@ -21,7 +21,10 @@ export function useHomeViewModel() {
       const data = await getProfile();
       setProfile(data);
     } catch (error) {
-      setErrorMessage(error.message || "Erro ao realizar a transferência");
+      setErrorMessage(
+        "Erro ao ler as informações do perfil, atualize a página ou tente novamente mais tarde."
+      );
+      console.error("Error fetching profile:", error);
     } finally {
       setLoadingProfile(false);
     }
@@ -35,6 +38,9 @@ export function useHomeViewModel() {
       const data = await getBalance();
       setBalance(data.balance);
     } catch (error) {
+      setErrorMessage(
+        "Erro ao ler o saldo da conta, atualize a página ou tente novamente mais tarde."
+      );
       console.error("Error fetching balance:", error);
     } finally {
       setLoadingBalance(false);
