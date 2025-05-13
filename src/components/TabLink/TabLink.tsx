@@ -11,9 +11,6 @@ export const TabLink = ({
   const location = useLocation();
   const isActive = location.pathname.substring(1) === to;
 
-  console.log("to: ", to);
-  console.log("location.pathname: ", location.pathname.substring(1));
-
   return (
     <NavLink
       to={to}

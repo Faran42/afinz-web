@@ -1,26 +1,51 @@
 import { useState, useEffect } from "react";
+import { getBalance, getProfile } from "../services/bankService";
+import { useAppContext } from "../hooks/useAppContext";
 
 export function useHomeViewModel() {
-  const [name, setName] = useState("Fulano");
-  const [balance, setBalance] = useState("1.250,00");
-  const [agency, setAgency] = useState("001");
-  const [lastUpdate, setLastUpdate] = useState("11/05/2025 às 15:42");
+  const { balance, profile, setBalance, setProfile } = useAppContext();
+
+  const [loadingProfile, setLoadingProfile] = useState(false);
+  const [loadingBalance, setLoadingBalance] = useState(false);
+
+  const [lastUpdate, setLastUpdate] = useState<string | null>(null); //pegar data atual mais tarde
+
+  const isLoading = loadingProfile || loadingBalance;
+
+  const fetchProfile = async () => {
+    setLoadingProfile(true);
+    try {
+      const data = await getProfile();
+      setProfile(data);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    } finally {
+      setLoadingProfile(false);
+    }
+  };
+
+  const fetchBalance = async () => {
+    setLoadingBalance(true);
+    try {
+      const data = await getBalance();
+      setBalance(data.balance);
+    } catch (error) {
+      console.error("Error fetching balance:", error);
+    } finally {
+      setLoadingBalance(false);
+    }
+  };
 
   useEffect(() => {
-    // Aqui entraria a chamada para a API para buscar os dados
-    // Exemplo fictício para simular os dados
-    setTimeout(() => {
-      setName("Ana Paula");
-      setBalance("3.150,99");
-      setAgency("234");
-      setLastUpdate("11/05/2025 às 17:05");
-    }, 1000);
+    fetchProfile();
+    fetchBalance();
+    setLastUpdate(new Date().toLocaleString() || null);
   }, []);
 
   return {
-    name,
+    profile,
     balance,
-    agency,
     lastUpdate,
+    isLoading,
   };
 }

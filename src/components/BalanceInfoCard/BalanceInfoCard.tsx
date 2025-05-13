@@ -1,0 +1,35 @@
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import "./BalanceInfoCard.css";
+
+export const BalanceInfoCard = () => {
+  const [showBalance, setShowBalance] = useState(false);
+
+  const toggleBalance = () => {
+    setShowBalance((prev) => !prev);
+  };
+
+  const formattedDate = "Atualizado em 12/05/2025 às 14:30";
+
+  return (
+    <div className="balance-card">
+      <div className="card-header">
+        <span className="card-title">Saldo em conta</span>
+        <button
+          onClick={toggleBalance}
+          className="icon-button"
+          aria-label="Alternar visibilidade do saldo">
+          {showBalance ? <Eye size={18} /> : <EyeOff size={18} />}
+        </button>
+      </div>
+
+      {showBalance ? (
+        <span className="balance-value">R$ 12.345,67</span>
+      ) : (
+        <div className="balance-bar" />
+      )}
+
+      <span className="card-info">{formattedDate}</span>
+    </div>
+  );
+};
