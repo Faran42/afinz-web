@@ -1,17 +1,9 @@
 import { X } from "lucide-react";
 import "./TransactionReceiptModal.css";
+import type { TransactionReceipt } from "../../models/TransactionReceipt";
 
 type Props = {
-  receipt: {
-    balance: string;
-    status: string;
-    date: string;
-    agency: string;
-    account: string;
-    value: string;
-    yourAccount: string;
-    yourAgency: string;
-  };
+  receipt: TransactionReceipt;
   onClose: () => void;
 };
 
@@ -22,10 +14,13 @@ export const TransactionReceiptModal = ({ receipt, onClose }: Props) => {
         <X size={20} />
       </button>
 
-      <h2>Novo Saldo</h2>
-      <p className="balance">{receipt?.balance}</p>
-
       <div className="info">
+        <p>
+          <strong>Novo Saldo</strong>
+          <br />
+          {receipt?.balance}
+        </p>
+
         <p>
           <strong>Status</strong>
           <br />

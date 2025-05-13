@@ -1,32 +1,24 @@
 import { TransferForm } from "../../../components/TransferForm";
 import { BalanceInfoCard } from "../../../components/BalanceInfoCard";
 import { TransactionReceiptModal } from "../../../components/TransactionReceiptModal";
-import { useTransferViewModel } from "../../../viewmodels/TransferViewModel";
 import "./TransferTab.css";
+import { useTransferContext } from "../../../hooks/useTransferContext";
 
 export const TransferTab = () => {
-  const {
-    isReceiptModalOpen,
-    transactionReceipt,
-    showReceipt,
-    closeReceiptModal,
-  } = useTransferViewModel();
+  const { isReceiptModalOpen, transactionReceipt, closeReceiptModal } =
+    useTransferContext();
+
   return (
     <div className="transfer-tab">
       <TransferForm />
       <BalanceInfoCard />
 
-      {isReceiptModalOpen && transactionReceipt && (
+      {isReceiptModalOpen && (
         <TransactionReceiptModal
           receipt={transactionReceipt}
           onClose={closeReceiptModal}
         />
       )}
-
-      <TransactionReceiptModal
-        receipt={transactionReceipt}
-        onClose={closeReceiptModal}
-      />
     </div>
   );
 };

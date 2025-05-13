@@ -1,103 +1,78 @@
-// import { useTransferFormViewModel } from "../../viewmodels/useTransferFormViewModel";
-
-// export const TransferForm = () => {
-//   const {
-//     transferType,
-//     handleTransferTypeChange,
-//     agency,
-//     account,
-//     amount,
-//     handleChange,
-//     handleSubmit,
-//   } = useTransferFormViewModel();
-
-//   return (
-//     <form
-//       onSubmit={handleSubmit}
-//       className="w-[360px] bg-white p-6 rounded-xl shadow-md">
-//       <h2 className="text-sm font-semibold mb-4">Dados da transferência</h2>
-
-//       <label className="text-sm">Tipo de transferência</label>
-//       <select
-//         value={transferType}
-//         onChange={handleTransferTypeChange}
-//         className="w-full mb-4 p-2 border border-gray-300 rounded text-sm text-gray-400">
-//         <option value="TED">TED (Transferência entre contas)</option>
-//         {/* outros tipos podem ser adicionados aqui */}
-//       </select>
-
-//       <input
-//         type="text"
-//         placeholder="Agência"
-//         value={agency}
-//         onChange={(e) => handleChange("agency", e.target.value)}
-//         className="w-full mb-3 p-2 border border-gray-300 rounded text-sm"
-//       />
-
-//       <input
-//         type="text"
-//         placeholder="Conta"
-//         value={account}
-//         onChange={(e) => handleChange("account", e.target.value)}
-//         className="w-full mb-3 p-2 border border-gray-300 rounded text-sm"
-//       />
-
-//       <input
-//         type="text"
-//         placeholder="Valor"
-//         value={amount}
-//         onChange={(e) => handleChange("amount", e.target.value)}
-//         className="w-full mb-4 p-2 border border-gray-300 rounded text-sm"
-//       />
-
-//       <button
-//         type="submit"
-//         className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">
-//         Transferir
-//       </button>
-//     </form>
-//   );
-// };
-
+import { useForm } from "react-hook-form";
 import "./TransferForm.css";
+import { useTransferFormViewModel } from "../../viewmodels/useTransferFormViewModel";
+
+type FormValues = {
+  agency: string;
+  account: string;
+  value: string;
+};
 
 export const TransferForm = () => {
+  const { submitTransfer, loading } = useTransferFormViewModel();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const onSubmit = (data: FormValues) => {
+    submitTransfer({
+      agency: Number(data.agency),
+      account: Number(data.account),
+      value: Number(data.value),
+    });
+  };
+
   return (
-    <div className="transfer-form-container">
+    <form className="transfer-form-container" onSubmit={handleSubmit(onSubmit)}>
       <h3>Dados da transferência</h3>
 
       <div className="form-group">
         <label htmlFor="transferType">Tipo de transferência</label>
         <select id="transferType">
-          <option value="TED">TED (Transferência entre contas)</option>
-          <option value="DOC">DOC (Documento de Ordem de Crédito)</option>
+          <option value="TED">TED</option>
+          <option value="DOC">DOC</option>
         </select>
       </div>
 
       <div className="form-group">
         <label htmlFor="agency">Agência</label>
         <input
-          type="text"
+          type="number"
           id="agency"
-          placeholder="Digite a agência (ex: 3212)"
+          placeholder="Digite a agência ex.: 3212"
+          {...register("agency", { required: "Campo obrigatório" })}
         />
+        {errors.agency && <span>{errors.agency.message}</span>}
       </div>
 
       <div className="form-group">
         <label htmlFor="account">Conta</label>
         <input
-          type="text"
+          type="number"
           id="account"
-          placeholder="Digite a conta (ex: 9073)"
+          placeholder="Digite a conta  ex.: 9073"
+          {...register("account", { required: "Campo obrigatório" })}
         />
+        {errors.account && <span>{errors.account.message}</span>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="amount">Valor</label>
-        <input type="text" id="amount" placeholder="Digite o valor " />
+        <label htmlFor="value">Valor</label>
+        <input
+          type="number"
+          id="value"
+          placeholder="Digite o valor"
+          {...register("value", { required: "Campo obrigatório" })}
+        />
+        {errors.value && <span>{errors.value.message}</span>}
       </div>
 
-      <button className="transfer-button">Transferir</button>
-    </div>
+      <button className="transfer-button" type="submit" disabled={loading}>
+        {loading ? "Transferindo..." : "Transferir"}
+      </button>
+    </form>
   );
 };

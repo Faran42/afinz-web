@@ -1,10 +1,10 @@
 export type TransactionReceipt = {
   balance: string;
-  status: string;
+  status: "Aprovada" | "Em processamento";
   date: string;
-  agency: string;
-  account: string;
+  agency: number;
+  account: number;
   value: string;
-  yourAccount: string;
-  yourAgency: string;
+  yourAccount: number | undefined;
+  yourAgency: number | undefined;
 };

@@ -1,8 +1,11 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import "./BalanceInfoCard.css";
+import { formatToBRL } from "../../utils/formatToBRL";
+import { useAppContext } from "../../hooks/useAppContext";
 
 export const BalanceInfoCard = () => {
+  const { balance } = useAppContext();
   const [showBalance, setShowBalance] = useState(false);
 
   const toggleBalance = () => {
@@ -24,7 +27,7 @@ export const BalanceInfoCard = () => {
       </div>
 
       {showBalance ? (
-        <span className="balance-value">R$ 12.345,67</span>
+        <span className="balance-value">{formatToBRL(balance || 0)}</span>
       ) : (
         <div className="balance-bar" />
       )}

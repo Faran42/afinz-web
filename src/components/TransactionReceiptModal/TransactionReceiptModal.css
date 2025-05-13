@@ -14,7 +14,7 @@
 .close-btn {
   background: none;
   border: none;
-  float: right;
+  float: left;
   cursor: pointer;
   margin-bottom: 16px;
 }
@@ -26,6 +26,8 @@
 }
 
 .info p {
+  display: flex;
+  justify-content: flex-end;
   margin: 10px 0;
   font-size: 14px;
   color: #2d2d2d;

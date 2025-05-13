@@ -2,12 +2,12 @@ import { createContext, useState, type ReactNode } from "react";
 
 type Profile = {
   name: string;
-  agency: string;
-  account: string;
+  agency: number;
+  account: number;
 };
 
 interface AppContextType {
-  balance: number;
+  balance: number | null;
   profile: Profile | null;
   setBalance: (value: number) => void;
   setProfile: (value: Profile) => void;
@@ -16,7 +16,7 @@ interface AppContextType {
 export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [balance, setBalance] = useState<number>(0);
+  const [balance, setBalance] = useState<number | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
 
   return (

@@ -24,15 +24,29 @@ export const getBalance = async () => {
   }
 };
 
+export const consultAgencyAccount = async (agency: number, account: number) => {
+  try {
+    const response = await api.get(
+      `/consult-agency-account/${agency}/${account}`
+    );
+    console.log("consult-Agency-Account data from api: ", response.data);
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching balance:", error);
+    throw error;
+  }
+};
+
 export const makeTransfer = async (payload: {
-  agencia: string;
-  conta: string;
-  valor: number;
+  agency: number;
+  account: number;
+  value: number;
 }) => {
   try {
     const response = await api.post("/transfer", payload);
 
-    console.log(response.data);
+    console.log("Transfer Success", response.data);
 
     return response.data;
   } catch (error) {
